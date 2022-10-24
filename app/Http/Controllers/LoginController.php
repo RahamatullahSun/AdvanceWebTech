@@ -12,13 +12,22 @@ class LoginController extends Controller
         $usertable = new UserModel();
         $result=$usertable->where('name',$request->name)->where('email',$request->email)->first();
 
-        if(!empty($result)){
-            return view("profile")->with("name",$request->name);
-        }else{
-            $output="wrong credentials";
-            return $output;
-        }
-
+            if(!empty($result)){
+                session()->put("name",$request->name);
+                return redirect("profile");
+            }else{
+                $output="wrong credentials";
+                return $output;
+            }
 
     }
+
+    function login(Request $request){
+        if(!isset($_SESSION['name'])){
+            return view('login');
+        }else{
+            return redirect("profile");
+        }
+    }
+
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\profileController;
 use App\Models\UserModel;
 
 /*
@@ -25,12 +26,9 @@ Route::get('/Home', function () {
 Route::get('/register', function () {
     return view('register');
 });
-Route::get('/login', function () {
-    return view('login');
-});
-Route::get('/profile', function () {
-    return view('profile');
-});
+Route::get('/profile',[profileController::class,'profile'])->middleware('checkLogin');
+Route::get('/profile/logout',[profileController::class,'logout']);
+Route::get('/login',[LoginController::class,'login'])->middleware('checkUser');
 
 Route::post('/register',[RegisterController::class,'getRegister']);
-Route::post('/login',[LoginController::class,'checkLogin']);
+Route::post('/login',[LoginController::class,'checkLogin'])->middleware('checkUser');
