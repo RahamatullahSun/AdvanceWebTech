@@ -6,5 +6,5 @@ LOGIN
 
 @section('content')
 <h1>profile</h1>
-<h2>{{$name}}</h2>
+<h2>Welcome {{$name}}</h2>
 @endsection
